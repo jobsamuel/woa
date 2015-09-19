@@ -12,6 +12,7 @@ Woa.prototype.frecuency = function (keywords, callback) {
     var _counts = {};
     var _frecuency = {};
     var _keywords;
+    var _result;
     var _kw;
 
     if (typeof keywords === 'string') {
@@ -34,7 +35,11 @@ Woa.prototype.frecuency = function (keywords, callback) {
             _frecuency[_k] = 'n/a';
         }
     });
-    callback(JSON.stringify(_frecuency, undefined, 2));
+    _result = JSON.stringify(_frecuency, undefined, 2);
+    if (callback && typeof callback === 'function') {
+        return callback(_result);
+    }
+    return _result;
 }
 
 module.exports = Woa;
