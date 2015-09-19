@@ -13,15 +13,16 @@ Example.js
 
 ```js
 var Woa = require('woa');
-var word = new Woa();
 
 var text = 'What is love?' +
     'Baby, don\'t hurt me' +
     'Don\'t hurt me no more';
 
-var keywords = ['hurt', 'baby'];
+var keywords = ['hurt', 'baby', 'oh'];
 
-word.frecuency(text, keywords, function (result) {
+var words = new Woa(text);
+
+words.frecuency(keywords, function (result) {
     console.log(result);
 });
 ```
@@ -31,7 +32,8 @@ The result will be something like this:
 ```json
 {
     "hurt": 0.16666666666666666,
-    "baby": 0.08333333333333333
+    "baby": 0.08333333333333333,
+    "oh": "n/a"
 }
 ```
 

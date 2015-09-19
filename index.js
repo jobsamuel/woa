@@ -1,21 +1,38 @@
-function Woa () {}
+function Woa (text) {
+    if (typeof text !== 'string') {
+        throw new Error('The argument must be a string.');
+    }
+    this._text = text.toLowerCase();
+    this._words = this._text.split(' ');
+}
 
-Woa.prototype.frecuency = function (text, keywords, callback) {
+Woa.prototype.frecuency = function (keywords, callback) {
 
+    var self = this;
     var _counts = {};
     var _frecuency = {};
-    var _text = text.toLowerCase();
-    var _words = _text.split(' ');
-    var _keywords = keywords.map(function (k) { return k.toLowerCase() });
+    var _keywords;
+    var _kw;
 
+    if (typeof keywords === 'string') {
+        _kw = [];
+        _kw.push(keywords.toLowerCase());
+    } else if (typeof keywords !== 'object' || keywords[0] === undefined) {
+        throw new Error('The argument must be an Array of strings.');
+    }
+    _keywords = _kw || keywords.map(function (k) { return k.toLowerCase() });
     _keywords.forEach(function (_k) {
-        _words.forEach(function (_w) {
+        self._words.forEach(function (_w) {
             var __k = new RegExp(_k);
             if (__k.test(_w)) {
                 _counts[_k] ? _counts[_k] += 1 : _counts[_k] = 1;
             }
         });
-        _frecuency[_k] = _counts[_k] / _words.length
+        if (_counts[_k]) {
+            _frecuency[_k] = _counts[_k] / self._words.length
+        } else {
+            _frecuency[_k] = 'n/a';
+        }
     });
     callback(JSON.stringify(_frecuency, undefined, 2));
 }
