@@ -17,7 +17,7 @@ var word = new Woa();
 
 var text = 'What is love?' +
     'Baby, don\'t hurt me' +
-    'Don't hurt me no more';
+    'Don\'t hurt me no more';
 
 var keywords = ['hurt', 'baby'];
 
