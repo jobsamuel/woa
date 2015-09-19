@@ -1,0 +1,24 @@
+{
+  "name": "woa",
+  "version": "0.3.0",
+  "description": "NodeJS module for word analytics",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heartyrobot/woa.git"
+  },
+  "keywords": [
+    "text-analyzer",
+    "words",
+    "language"
+  ],
+  "author": "Jobsamuel Núñez <jobsamuel@gustico.com> (http://jobsamuel.github.io/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/heartyrobot/woa/issues"
+  },
+  "homepage": "https://github.com/heartyrobot/woa#readme"
+}
