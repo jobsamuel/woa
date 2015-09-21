@@ -36,11 +36,42 @@ The result will be something like this:
     "oh": "n/a"
 }
 ```
+# why this module?
+
+We stumble upon the necessity of a tool that simplify comment processing for [Instagram Analytics](https://github.com/heartyrobot/node-instagram-analytics); we just want to make easy the analysis of any text.
+
+**woa** helps you to discover and count patterns in text using the power of Node. It's written in pure javascript, blazing fast and easy to use.
+
+Would you like to try it out?
+
+# api methods
+
+### new Woa(text)
+
+Constructs a new Woa text from a string.
+
+#### arguments
+
+`text` The text to be processed. Must be a *string*.
+
+### frecuency(keywords, onComplete)
+
+Generate a JSON object with the percent occurrence of each keyword in a text.
+
+#### arguments
+
+`keywords` Word or list of words to count in a text. Must be an *Array of strings* or a *string*.
+
+`onComplete` A *optional* callback function that will be called when the text analysis is completed. The callback will be passed a JSON object with the result.
 
 # todo
 
 - [ ] Make `keywords` optional and return the frecuency of all unique words in text.
-- [ ] Add API documentation.
+- [x] Add API documentation.
+
+# contribution
+
+Feel free to fork and create a Pull Request with new methods or an improvement of the old ones.
 
 # license
 
