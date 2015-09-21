@@ -39,6 +39,9 @@ The result will be something like this:
 
 # todo
 
+- [ ] Make `keywords` optional and return the frecuency of all unique words in text.
+- [ ] Add API documentation.
+
 # license
 
 [MIT](http://opensource.org/licenses/MIT) License :copyright: 2015 Hearty Robot and [other contributors](https://github.com/heartyrobot/woa/graphs/contributors)

@@ -2,8 +2,16 @@ function Woa (text) {
     if (typeof text !== 'string') {
         throw new Error('The argument must be a string.');
     }
-    this._text = text.toLowerCase();
+    this._text = cleanText(text);
     this._words = this._text.split(' ');
+}
+
+function cleanText(text) {
+    var tx = '';
+    var t1 = text.toLowerCase().split(' ');
+    var t2 = t1.map(function (t) { return t.replace(/[^a-z]/g, ' ') });
+    t2.forEach(function (t) { tx = tx + ' ' + t });
+    return tx.replace(/\s{2,}/g, ' ').replace(/^\s|\s$/g, '');
 }
 
 Woa.prototype.frecuency = function (keywords, callback) {
