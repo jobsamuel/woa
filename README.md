@@ -1,4 +1,4 @@
-# woa
+# woa [![npm version](https://badge.fury.io/js/woa.svg)](http://badge.fury.io/js/woa)
 > NodeJS module for word analytics
 
 # installation
