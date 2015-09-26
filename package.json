@@ -1,6 +1,6 @@
 {
   "name": "woa",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "NodeJS module for word analytics",
   "main": "index.js",
   "scripts": {
@@ -12,8 +12,10 @@
   },
   "keywords": [
     "text-analyzer",
+    "text-processor",
     "words",
-    "language"
+    "language",
+    "analytics"
   ],
   "author": "Jobsamuel Núñez <jobsamuel@gustico.com> (http://jobsamuel.github.io/)",
   "license": "MIT",
