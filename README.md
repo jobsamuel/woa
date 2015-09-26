@@ -1,4 +1,4 @@
-# woa [![npm version](https://badge.fury.io/js/woa.svg)](http://badge.fury.io/js/woa)
+# woa [![npm version](https://badge.fury.io/js/woa.svg)](http://badge.fury.io/js/woa) [![npm](https://img.shields.io/npm/dm/woa.svg)]()
 > NodeJS module for word analytics
 
 # installation
@@ -56,13 +56,13 @@ Constructs a new Woa text from a string.
 
 ### frecuency(keywords, onComplete)
 
-Generate a JSON object with the percent occurrence of each keyword in a text.
+Generate a JSON with the percent occurrence of each keyword in a text.
 
 #### arguments
 
 `keywords` Word or list of words to count in a text. Must be an *Array of strings* or a *string*.
 
-`onComplete` A *optional* callback function that will be called when the text analysis is completed. The callback will be passed a JSON object with the result.
+`onComplete` A *optional* callback function that will be called when the text analysis is completed. The callback will be passed a JSON with the result.
 
 # todo
 
