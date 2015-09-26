@@ -1,9 +1,12 @@
-function Woa (text) {
+function Woa (text, options) {
     if (typeof text !== 'string') {
-        throw new Error('The argument must be a string.');
+        throw new Error('The argument "text" must be a String.');
+    } else if (options && typeof options !== 'object') {
+        throw new Error('The argument "options" must be an Object.');
     }
     this._text = cleanText(text);
     this._words = this._text.split(' ');
+    this._options = options || false;
 }
 
 function cleanText(text) {
@@ -22,6 +25,7 @@ Woa.prototype.frecuency = function (keywords, callback) {
     var _keywords;
     var _result;
     var _kw;
+    var _pr;
 
     if (typeof keywords === 'string') {
         _kw = [];
@@ -43,7 +47,8 @@ Woa.prototype.frecuency = function (keywords, callback) {
             _frecuency[_k] = 'n/a';
         }
     });
-    _result = JSON.stringify(_frecuency, undefined, 2);
+    self._options && self._options.pretty ? _pr = 2 : _pr = null;
+    _result = JSON.stringify(_frecuency, null, _pr);
     if (callback && typeof callback === 'function') {
         return callback(_result);
     }

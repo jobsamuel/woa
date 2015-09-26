@@ -20,7 +20,7 @@ var text = 'What is love?' +
 
 var keywords = ['hurt', 'baby', 'oh'];
 
-var words = new Woa(text);
+var words = new Woa(text, { pretty: true });
 
 words.frecuency(keywords, function (result) {
     console.log(result);
@@ -46,13 +46,17 @@ Would you like to try it out?
 
 # api methods
 
-### new Woa(text)
+### new Woa(text, options)
 
-Constructs a new Woa text from a string.
+Constructs a new Woa text from a *String*.
 
 #### arguments
 
-`text` The text to be processed. Must be a *string*.
+`text` The text to be processed. Must be a *String*.
+
+`options` Define output options. Must be an *Object*.
+
+- `pretty` Insert white space into the output JSON string for readability purposes. Must be a *Boolean*. Default `false`.
 
 ### frecuency(keywords, onComplete)
 
@@ -60,7 +64,7 @@ Generate a JSON with the percent occurrence of each keyword in a text.
 
 #### arguments
 
-`keywords` Word or list of words to count in a text. Must be an *Array of strings* or a *string*.
+`keywords` Word or list of words to count in a text. Must be an *Array of Strings* or a *String*.
 
 `onComplete` A *optional* callback function that will be called when the text analysis is completed. The callback will be passed a JSON with the result.
 
