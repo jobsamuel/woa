@@ -9,7 +9,7 @@ function Woa (text, options) {
     this._options = options || false;
 }
 
-function cleanText(text) {
+function cleanText (text) {
     var tx = '';
     var t1 = text.toLowerCase().split(' ');
     var t2 = t1.map(function (t) { return t.replace(/[^a-z]/g, ' ') });
@@ -18,7 +18,6 @@ function cleanText(text) {
 }
 
 Woa.prototype.frecuency = function (keywords, callback) {
-
     var self = this;
     var _counts = {};
     var _frecuency = {};
@@ -26,7 +25,6 @@ Woa.prototype.frecuency = function (keywords, callback) {
     var _result;
     var _kw;
     var _pr;
-
     if (typeof keywords === 'string') {
         _kw = [];
         _kw.push(keywords.toLowerCase());
@@ -47,12 +45,10 @@ Woa.prototype.frecuency = function (keywords, callback) {
             _frecuency[_k] = 'n/a';
         }
     });
-    self._options && self._options.pretty ? _pr = 2 : _pr = null;
-    _result = JSON.stringify(_frecuency, null, _pr);
     if (callback && typeof callback === 'function') {
-        return callback(_result);
+        return callback(_frecuency);
     }
-    return _result;
+    return _frecuency;
 }
 
 module.exports = Woa;

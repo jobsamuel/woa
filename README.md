@@ -1,4 +1,4 @@
-# woa [![npm version](https://badge.fury.io/js/woa.svg)](http://badge.fury.io/js/woa) [![npm](https://img.shields.io/npm/dm/woa.svg)]()
+# woa [![npm version](https://badge.fury.io/js/woa.svg)](http://badge.fury.io/js/woa) [![npm](https://img.shields.io/npm/dt/woa.svg)]() [![npm](https://img.shields.io/npm/l/woa.svg)]()
 > NodeJS module for word analytics
 
 # installation
@@ -20,14 +20,14 @@ var text = 'What is love?' +
 
 var keywords = ['hurt', 'baby', 'oh'];
 
-var words = new Woa(text, { pretty: true });
+var words = new Woa(text);
 
 words.frecuency(keywords, function (result) {
     console.log(result);
 });
 ```
 
-The result will be something like this:
+The result will be this:
 
 ```json
 {
@@ -55,8 +55,6 @@ Constructs a new Woa text from a *String*.
 `text` The text to be processed. Must be a *String*.
 
 `options` Define output options. Must be an *Object*.
-
-- `pretty` Insert white space into the output JSON string for readability purposes. Must be a *Boolean*. Default `false`.
 
 ### frecuency(keywords, onComplete)
 
