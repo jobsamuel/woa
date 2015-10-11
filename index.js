@@ -1,8 +1,10 @@
+var fs = require('fs');
+
 function Woa (text, options) {
     if (typeof text !== 'string') {
-        throw new Error('The argument "text" must be a String.');
+        throw new Error('The first argument must be a String.');
     } else if (options && typeof options !== 'object') {
-        throw new Error('The argument "options" must be an Object.');
+        throw new Error('The second argument must be an Object.');
     }
     this._text = cleanText(text);
     this._words = this._text.split(' ');
@@ -11,8 +13,12 @@ function Woa (text, options) {
 
 function cleanText (text) {
     var tx = '';
-    var t1 = text.toLowerCase().split(' ');
-    var t2 = t1.map(function (t) { return t.replace(/[^a-z]/g, ' ') });
+    var _tx;
+    var t1;
+    var t2;
+    try { _tx = fs.readFileSync(text, 'utf8') } catch (e) { _tx = text };
+    t1 = _tx.toLowerCase().split(' ');
+    t2 = t1.map(function (t) { return t.replace(/[^a-z]/g, ' ') });
     t2.forEach(function (t) { tx = tx + ' ' + t });
     return tx.replace(/\s{2,}/g, ' ').replace(/^\s|\s$/g, '');
 }
@@ -22,7 +28,6 @@ Woa.prototype.frecuency = function (keywords, callback) {
     var _counts = {};
     var _frecuency = {};
     var _keywords;
-    var _result;
     var _kw;
     var _pr;
     if (typeof keywords === 'string') {
