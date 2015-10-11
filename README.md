@@ -21,6 +21,8 @@ var text = 'What is love?' +
 var keywords = ['hurt', 'baby', 'oh'];
 
 var words = new Woa(text);
+// or you could use this instead
+// var words = new Woa('path/to/text.txt');
 
 words.frecuency(keywords, function (result) {
     console.log(result);
@@ -52,7 +54,7 @@ Constructs a new Woa text from a *String*.
 
 #### arguments
 
-`text` The text to be processed. Must be a *String*.
+`text` The text to be processed. Must be a *String* containing either Text to be processed or a file path to it.
 
 `options` Define output options. Must be an *Object*.
 
