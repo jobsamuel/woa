@@ -19,14 +19,10 @@ var text = 'What is love?' +
     'Don\'t hurt me no more';
 
 var keywords = ['hurt', 'baby', 'oh'];
-
 var words = new Woa(text);
-// or you could use this instead
-// var words = new Woa('path/to/text.txt');
+var result = words.frecuency(keywords);
 
-words.frecuency(keywords, function (result) {
-    console.log(result);
-});
+console.log(result);
 ```
 
 The result will be this:
@@ -38,6 +34,18 @@ The result will be this:
     "oh": "n/a"
 }
 ```
+
+Also, you can use an external text file with a callback:
+
+```js
+var words = new Woa('path/to/text.txt');
+var keywords = ['gimme', 'a', 'sign'];
+
+words.frecuency(keywords, function (result) {
+    console.log(result);
+});
+```
+
 # why this module?
 
 We stumble upon the necessity of a tool that simplify comment processing for [Instagram Analytics](https://github.com/heartyrobot/node-instagram-analytics); we just want to make easy the analysis of any text.
@@ -75,7 +83,7 @@ Generate a JSON with the percent occurrence of each keyword in a text.
 
 # contribution
 
-Feel free to fork and create a Pull Request with new methods or an improvement of the old ones.
+Feel free to fork and create a Pull Request with new methods or an improvement of the old ones. Just keep in mind this [Javascript Style Guide](https://github.com/airbnb/javascript/tree/master/es5) when you're coding your contribution.
 
 # license
 
