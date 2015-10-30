@@ -19,14 +19,14 @@ class Woa {
         let _keywords;
         let _kw;
         let _pr;
-        
-        if (typeof keywords === 'function') {
+
+        if (!keywords || typeof keywords === 'function') {
             _kw = getKeywords(this._words);
         } else if (typeof keywords === 'string') {
             _kw = [];
             _kw.push(keywords.toLowerCase());
         } else if (keywords && callback && (typeof keywords !== 'object' || keywords[0] === undefined)) {
-            throw new Error('The argument must be an Array of strings.');
+            throw new Error('The first argument must be a string or an Array of strings.');
         }
 
         _keywords = _kw || keywords.map(k => k.toLowerCase());
@@ -81,12 +81,10 @@ function cleanText(text) {
 function getKeywords(text) {
     let someWords = [];
 
-    text.filter(function(w) {
+    text.forEach(function(w) {
         if (someWords.indexOf(w) === -1) {
-            return someWords.push(w);
+            someWords.push(w);
         }
-
-        return false;
     });
 
     return someWords;
