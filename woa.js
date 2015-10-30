@@ -19,11 +19,13 @@ class Woa {
         let _keywords;
         let _kw;
         let _pr;
-
-        if (typeof keywords === 'string') {
+        
+        if (typeof keywords === 'function') {
+            _kw = getKeywords(this._words);
+        } else if (typeof keywords === 'string') {
             _kw = [];
             _kw.push(keywords.toLowerCase());
-        } else if (typeof keywords !== 'object' || keywords[0] === undefined) {
+        } else if (keywords && callback && (typeof keywords !== 'object' || keywords[0] === undefined)) {
             throw new Error('The argument must be an Array of strings.');
         }
 
@@ -47,6 +49,8 @@ class Woa {
 
         if (callback && typeof callback === 'function') {
             return callback(_frecuency);
+        } else if (keywords && typeof keywords === 'function') {
+            return keywords(_frecuency);
         }
 
         return _frecuency;
@@ -72,6 +76,20 @@ function cleanText(text) {
     t2.forEach(t => tx = tx + ' ' + t);
 
     return tx.replace(/\s{2,}/g, ' ').trim();
+}
+
+function getKeywords(text) {
+    let someWords = [];
+
+    text.filter(function(w) {
+        if (someWords.indexOf(w) === -1) {
+            return someWords.push(w);
+        }
+
+        return false;
+    });
+
+    return someWords;
 }
 
 export default Woa;
