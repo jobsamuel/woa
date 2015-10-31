@@ -1,60 +1,52 @@
 import fs from 'fs';
 
-class Woa {
-    constructor(text, options) {
-        if (typeof text !== 'string') {
-            throw new Error('The first argument must be a String.');
-        } else if (options && typeof options !== 'object') {
-            throw new Error('The second argument must be an Object.');
-        }
-
-        this._text = cleanText(text);
-        this._words = this._text.split(' ');
-        this._options = options || false;
+function woa(text, keywords, callback) {
+    if (typeof text !== 'string') {
+        throw new Error('The first parameter must be a String.');
     }
 
-    frecuency(keywords, callback) {
-        const _counts = {};
-        const _frecuency = {};
-        let _keywords;
-        let _kw;
-        let _pr;
+    const _text = cleanText(text);
+    const _words = _text.split(' ');
+    const _counts = {};
+    const _frecuency = {};
+    let _keywords;
+    let _kw;
+    let _pr;
 
-        if (!keywords || typeof keywords === 'function') {
-            _kw = getKeywords(this._words);
-        } else if (typeof keywords === 'string') {
-            _kw = [];
-            _kw.push(keywords.toLowerCase());
-        } else if (keywords && callback && (typeof keywords !== 'object' || keywords[0] === undefined)) {
-            throw new Error('The first argument must be a string or an Array of strings.');
-        }
+    if (!keywords || typeof keywords === 'function') {
+        _kw = getKeywords(_words);
+    } else if (typeof keywords === 'string') {
+        _kw = [];
+        _kw.push(keywords.toLowerCase());
+    } else if (keywords && callback && (typeof keywords !== 'object' || keywords[0] === undefined)) {
+        throw new Error('The second parameter must be a string or an Array of strings.');
+    }
 
-        _keywords = _kw || keywords.map(k => k.toLowerCase());
+    _keywords = _kw || keywords.map(k => k.toLowerCase());
 
-        _keywords.forEach(_k => {
-            this._words.forEach(function(_w) {
-                const _v = new RegExp(_k);
+    _keywords.forEach(function(_k) {
+        _words.forEach(function(_w) {
+            const _v = new RegExp(_k);
 
-                if (_v.test(_w)) {
-                    _counts[_k] ? _counts[_k] += 1 : _counts[_k] = 1;
-                }
-            });
-            
-            if (_counts[_k]) {
-                _frecuency[_k] = _counts[_k] / this._words.length
-            } else {
-                _frecuency[_k] = 'n/a';
+            if (_v.test(_w)) {
+                _counts[_k] ? _counts[_k] += 1 : _counts[_k] = 1;
             }
         });
-
-        if (callback && typeof callback === 'function') {
-            return callback(_frecuency);
-        } else if (keywords && typeof keywords === 'function') {
-            return keywords(_frecuency);
+        
+        if (_counts[_k]) {
+            _frecuency[_k] = _counts[_k] / _words.length
+        } else {
+            _frecuency[_k] = 'n/a';
         }
+    });
 
-        return _frecuency;
+    if (callback && typeof callback === 'function') {
+        return callback(_frecuency);
+    } else if (keywords && typeof keywords === 'function') {
+        return keywords(_frecuency);
     }
+
+    return _frecuency;
 }
 
 function cleanText(text) {
@@ -90,4 +82,4 @@ function getKeywords(text) {
     return someWords;
 }
 
-export default Woa;
+export default woa;
