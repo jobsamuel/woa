@@ -19,7 +19,9 @@ function woa(text, keywords, callback) {
         _kw = [];
         _kw.push(keywords.toLowerCase());
     } else if (keywords && callback && (typeof keywords !== 'object' || keywords[0] === undefined)) {
-        throw new Error('The second parameter must be a string or an Array of strings.');
+        throw new Error('The second parameter must be a string or an array of strings.');
+    } else if (!callback && (typeof keywords !== 'object' || keywords[0] === undefined)) {
+        throw new Error('The second parameter must be a string, an Array of strings or a callback function.');
     }
 
     _keywords = _kw || keywords.map(k => k.toLowerCase());
