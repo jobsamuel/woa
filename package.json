@@ -1,6 +1,6 @@
 {
   "name": "woa",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "NodeJS module for word analytics",
   "main": "index.js",
   "scripts": {
