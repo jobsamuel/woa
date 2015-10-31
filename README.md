@@ -1,4 +1,4 @@
-# woa [![npm version](https://badge.fury.io/js/woa.svg)](http://badge.fury.io/js/woa) [![npm](https://img.shields.io/npm/dt/woa.svg)]() [![npm](https://img.shields.io/npm/l/woa.svg)]()
+# woa [![npm version](https://img.shields.io/npm/v/woa.svg?style=flat-square)](https://www.npmjs.com/package/woa) [![downloads](https://img.shields.io/npm/dt/woa.svg?style=flat-square)](https://www.npmjs.com/package/woa) [![license](https://img.shields.io/npm/l/woa.svg?style=flat-square)](https://www.npmjs.com/package/woa)
 > NodeJS module for word analytics
 
 # installation
@@ -12,15 +12,14 @@ $ npm install woa
 Example.js
 
 ```js
-var Woa = require('woa');
+import woa from 'woa';
 
-var text = 'What is love?' +
+const text = 'What is love?' +
     'Baby, don\'t hurt me' +
     'Don\'t hurt me no more';
 
-var keywords = ['hurt', 'baby', 'oh'];
-var words = new Woa(text);
-var result = words.frecuency(keywords);
+const keywords = ['hurt', 'baby', 'oh'];
+const result = woa(text, keywords);
 
 console.log(result);
 ```
@@ -38,10 +37,12 @@ The result will be this:
 Also, you can use an external text file with a callback:
 
 ```js
-var words = new Woa('path/to/text.txt');
-var keywords = ['gimme', 'a', 'sign'];
+// ...
 
-words.frecuency(keywords, function (result) {
+const words = 'path/to/text.txt';
+const keywords = ['gimme', 'a', 'sign'];
+
+woa(words, keywords, function(result) {
     console.log(result);
 });
 ```
@@ -54,36 +55,28 @@ We stumble upon the necessity of a tool that simplify comment processing for [In
 
 Would you like to try it out?
 
-# api methods
+# api
 
-### new Woa(text, options)
-
-Constructs a new Woa text from a *String*.
-
-#### arguments
-
-`text` The text to be processed. Must be a *String* containing either Text to be processed or a file path to it.
-
-`options` Define output options. Must be an *Object*.
-
-### frecuency(keywords, onComplete)
+### woa(text, keywords, onComplete)
 
 Generate a JSON with the percent occurrence of each keyword in a text.
 
 #### arguments
 
-`keywords` Word or list of words to count in a text. Must be an *Array of Strings* or a *String*.
+`text` The text to be processed. Must be a *String* containing either Text to be processed or a file path to it.
 
-`onComplete` A *optional* callback function that will be called when the text analysis is completed. The callback will be passed a JSON with the result.
+`keywords` *optional*  word or list of words to count in a text. Must be a *String* or an *Array of Strings*.
+
+`onComplete` An *optional* callback function that will be called when the text analysis is completed. The callback will be passed a JSON with the result.
 
 # todo
 
-- [ ] Make `keywords` optional and return the frecuency of all unique words in text.
+- [x] Make `keywords` optional and return the frecuency of all unique words in text.
 - [x] Add API documentation.
 
 # contribution
 
-Feel free to fork and create a Pull Request with new methods or an improvement of the old ones. Just keep in mind this [Javascript Style Guide](https://github.com/airbnb/javascript/tree/master/es5) when you're coding your contribution.
+Feel free to fork and create a Pull Request with new features or an improvement of the current ones. Just keep in mind this [Javascript Style Guide](https://github.com/airbnb/javascript/tree/master/es5) when you're coding your contribution.
 
 # license
 
