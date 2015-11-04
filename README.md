@@ -69,11 +69,6 @@ Generate a JSON with the percent occurrence of each keyword in a text.
 
 `onComplete` An *optional* callback function that will be called when the text analysis is completed. The callback will be passed a JSON with the result.
 
-# todo
-
-- [x] Make `keywords` optional and return the frecuency of all unique words in text.
-- [x] Add API documentation.
-
 # contribution
 
 Feel free to fork and create a Pull Request with new features or an improvement of the current ones. Just keep in mind this [Javascript Style Guide](https://github.com/airbnb/javascript/tree/master/es5) when you're coding your contribution.
