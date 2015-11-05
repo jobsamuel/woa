@@ -1,13 +1,13 @@
 # woa [![npm version](https://img.shields.io/npm/v/woa.svg?style=flat-square)](https://www.npmjs.com/package/woa) [![downloads](https://img.shields.io/npm/dt/woa.svg?style=flat-square)](https://www.npmjs.com/package/woa) [![license](https://img.shields.io/npm/l/woa.svg?style=flat-square)](https://www.npmjs.com/package/woa)
 > NodeJS module for word analytics
 
-# installation
+## installation
 
 ```bash
 $ npm install woa
 ```
 
-# usage
+## usage
 
 Example.js
 
@@ -47,7 +47,7 @@ woa(words, keywords, function(result) {
 });
 ```
 
-# why this module?
+## why this module?
 
 We stumble upon the necessity of a tool that simplify comment processing for [Instagram Analytics](https://github.com/heartyrobot/node-instagram-analytics); we just want to make easy the analysis of any text.
 
@@ -55,9 +55,9 @@ We stumble upon the necessity of a tool that simplify comment processing for [In
 
 Would you like to try it out?
 
-# api
+## api
 
-### woa(text, keywords, onComplete)
+### `woa(text, keywords, onComplete)`
 
 Generate a JSON with the percent occurrence of each keyword in a text.
 
@@ -69,10 +69,10 @@ Generate a JSON with the percent occurrence of each keyword in a text.
 
 `onComplete` An *optional* callback function that will be called when the text analysis is completed. The callback will be passed a JSON with the result.
 
-# contribution
+## contribution
 
 Feel free to fork and create a Pull Request with new features or an improvement of the current ones. Just keep in mind this [Javascript Style Guide](https://github.com/airbnb/javascript/tree/master/es5) when you're coding your contribution.
 
-# license
+## license
 
 [MIT](http://opensource.org/licenses/MIT) License :copyright: 2015 Hearty Robot and [other contributors](https://github.com/heartyrobot/woa/graphs/contributors)
