@@ -11,7 +11,6 @@ function woa(text, keywords, callback) {
     const _frecuency = {};
     let _keywords;
     let _kw;
-    let _pr;
 
     if (!keywords || typeof keywords === 'function') {
         _kw = getKeywords(_words);
