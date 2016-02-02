@@ -49,7 +49,7 @@ woa(words, keywords, function(result) {
 
 ## why this module?
 
-We stumble upon the necessity of a tool that simplify comment processing for [Instagram Analytics](https://github.com/heartyrobot/node-instagram-analytics); we just want to make easy the analysis of any text.
+I stumble upon the necessity of a tool that simplify comment processing for [Instagram Analytics](https://github.com/jobsamuel/node-instagram-analytics); I just want to make easy the analysis of any text.
 
 **woa** helps you to discover and count patterns in text using the power of Node. It's written in pure javascript, blazing fast and easy to use.
 
@@ -75,4 +75,4 @@ Feel free to fork and create a Pull Request with new features or an improvement 
 
 ## license
 
-[MIT](http://opensource.org/licenses/MIT) License :copyright: 2015 Hearty Robot and [other contributors](https://github.com/heartyrobot/woa/graphs/contributors)
+[MIT](http://opensource.org/licenses/MIT) License :copyright: Jobsamuel Núñez and [other contributors](https://github.com/jobsamuel/woa/graphs/contributors)

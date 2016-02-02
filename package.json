@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/heartyrobot/woa.git"
+    "url": "git+https://github.com/jobsamuel/woa.git"
   },
   "keywords": [
     "text-analyzer",
@@ -23,9 +23,9 @@
   "author": "Jobsamuel Núñez <jobsamuel@gustico.com> (http://jobsamuel.github.io/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/heartyrobot/woa/issues"
+    "url": "https://github.com/jobsamuel/woa/issues"
   },
-  "homepage": "https://github.com/heartyrobot/woa#readme",
+  "homepage": "https://github.com/jobsamuel/woa#readme",
   "devDependencies": {
     "babel": "^5.8.29"
   }
