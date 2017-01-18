@@ -75,4 +75,4 @@ Feel free to fork and create a Pull Request with new features or an improvement 
 
 ## license
 
-[MIT](http://opensource.org/licenses/MIT) License :copyright: Jobsamuel Núñez and [other contributors](https://github.com/jobsamuel/woa/graphs/contributors)
+[MIT](http://opensource.org/licenses/MIT) License :copyright: 2017 Jobsamuel Núñez
