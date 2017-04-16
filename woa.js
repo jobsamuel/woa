@@ -1,53 +1,33 @@
-import fs from 'fs';
-
-function woa(text, keywords, callback) {
-  if (typeof text !== 'string') {
-    throw new Error('The first parameter must be a String.');
+function woa(config) {
+  if (typeof config !== 'object') {
+    throw new Error(`Expected an Object Argument but received: ${typeof config}.`);
+  } else if (!config.hasOwnProperty('text') || (typeof config.text !== 'string' && !Array.isArray(config.text))) {
+    throw new Error(`\'text\' property is required and it should be an String or an Array of Strings, but received: ${typeof config.text}`);
   }
 
-  const _text = cleanText(text);
-  const _words = _text.split(' ');
-  const _counts = {};
-  const _frecuency = {};
-  let _keywords;
-  let _kw;
+  const text = cleanText(config.text);
+  const words = text.split(' ');
+  const keywords = getKeywords(config.keywords, words);
+  const counts = {};
+  const frecuency = {};
 
-  if (!keywords || typeof keywords === 'function') {
-    _kw = getKeywords(_words);
-  } else if (typeof keywords === 'string') {
-    _kw = [];
-    _kw.push(keywords.toLowerCase());
-  } else if (keywords && callback && (typeof keywords !== 'object' || keywords[0] === undefined)) {
-    throw new Error('The second parameter must be a string or an array of strings.');
-  } else if (!callback && (typeof keywords !== 'object' || keywords[0] === undefined)) {
-    throw new Error('The second parameter must be a string, an Array of strings or a callback function.');
-  }
+  keywords.forEach(function(k) {
+    words.forEach(function(w) {
+      const v = new RegExp(k);
 
-  _keywords = _kw || keywords.map(k => k.toLowerCase());
-
-  _keywords.forEach(function(_k) {
-    _words.forEach(function(_w) {
-      const _v = new RegExp(_k);
-
-      if (_v.test(_w)) {
-        _counts[_k] ? _counts[_k] += 1 : _counts[_k] = 1;
+      if (v.test(w)) {
+        counts[k] ? counts[k] += 1 : counts[k] = 1;
       }
     });
-    
-    if (_counts[_k]) {
-      _frecuency[_k] = _counts[_k] / _words.length
+
+    if (counts[k]) {
+      frecuency[k] = counts[k] / words.length
     } else {
-      _frecuency[_k] = 'n/a';
+      frecuency[k] = 'n/a';
     }
   });
 
-  if (callback && typeof callback === 'function') {
-    return callback(_frecuency);
-  } else if (keywords && typeof keywords === 'function') {
-    return keywords(_frecuency);
-  }
-
-  return _frecuency;
+  return frecuency;
 }
 
 function cleanText(text) {
@@ -56,31 +36,39 @@ function cleanText(text) {
   let t1;
   let t2;
 
-  try { 
+  try {
     ty = fs.readFileSync(text, 'utf8');
-  } catch (e) { 
+  } catch (e) {
     ty = text;
   };
 
   t1 = ty.toLowerCase().split(' ');
-  
+
   t2 = t1.map(t => t.replace(/[^a-z]/g, ' '));
-  
+
   t2.forEach(t => tx = tx + ' ' + t);
 
   return tx.replace(/\s{2,}/g, ' ').trim();
 }
 
-function getKeywords(text) {
-  let someWords = [];
+function getKeywords(defined, auto) {
+  let kw;
 
-  text.forEach(function(w) {
-    if (someWords.indexOf(w) === -1) {
-      someWords.push(w);
-    }
-  });
+  if (defined && Array.isArray(defined)) {
+    kw = defined;
+  } else if (defined) {
+    kw = Array.of(defined);
+  } else {
+    kw = [];
 
-  return someWords;
+    auto.map(w => {
+      if (kw.indexOf(w) === -1) {
+        kw.push(w);
+      }
+    });
+  }
+
+  return kw.map(w => w.toLowerCase());
 }
 
 export default woa;
