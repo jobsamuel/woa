@@ -1,8 +1,13 @@
 function woa(config) {
   if (typeof config !== 'object') {
-    throw new Error(`Expected an Object Argument but received: ${typeof config}.`);
+    const msg = `Expected an Object Argument but received: ${typeof config}.`;
+
+    throw new Error(msg);
   } else if (!config.hasOwnProperty('text') || (typeof config.text !== 'string' && !Array.isArray(config.text))) {
-    throw new Error(`\'text\' property is required and it should be an String or an Array of Strings, but received: ${typeof config.text}`);
+    const msg = '\'text\' property is required and it should be an String ' +
+      `or an Array of Strings, but received: ${typeof config.text}`;
+
+    throw new Error(msg);
   }
 
   const text = cleanText(config.text);
@@ -26,6 +31,7 @@ function woa(config) {
   return frecuency;
 }
 
+// TODO: Refactor this function.
 function cleanText(text) {
   let tx = '';
   let ty;
