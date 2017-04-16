@@ -11,20 +11,16 @@ function woa(config) {
   const counts = {};
   const frecuency = {};
 
-  keywords.forEach(function(k) {
-    words.forEach(function(w) {
-      const v = new RegExp(k);
+  keywords.map(kw => {
+    words.map(w => {
+      const value = new RegExp(kw);
 
-      if (v.test(w)) {
-        counts[k] ? counts[k] += 1 : counts[k] = 1;
+      if (value.test(w)) {
+        counts[kw] ? counts[kw] += 1 : counts[kw] = 1;
       }
     });
 
-    if (counts[k]) {
-      frecuency[k] = counts[k] / words.length
-    } else {
-      frecuency[k] = 'n/a';
-    }
+    frecuency[kw] = counts[kw] ? counts[kw] / words.length : 'n/a';
   });
 
   return frecuency;
