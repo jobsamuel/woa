@@ -31,26 +31,13 @@ function woa(config) {
   return frecuency;
 }
 
-// TODO: Refactor this function.
 function cleanText(text) {
-  let tx = '';
-  let ty;
-  let t1;
-  let t2;
-
-  try {
-    ty = fs.readFileSync(text, 'utf8');
-  } catch (e) {
-    ty = text;
-  };
-
-  t1 = ty.toLowerCase().split(' ');
-
-  t2 = t1.map(t => t.replace(/[^a-z]/g, ' '));
-
-  t2.forEach(t => tx = tx + ' ' + t);
-
-  return tx.replace(/\s{2,}/g, ' ').trim();
+  return text.toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]|\u0027/g, '')
+    .replace(/[^a-z]+/g, ' ')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
 }
 
 function getKeywords(defined, auto) {
