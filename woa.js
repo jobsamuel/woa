@@ -3,9 +3,9 @@ function woa(config) {
     const msg = `Expected an Object Argument but received: ${typeof config}.`;
 
     throw new Error(msg);
-  } else if (!config.hasOwnProperty('text') || (typeof config.text !== 'string' && !Array.isArray(config.text))) {
-    const msg = '\'text\' property is required and it should be an String ' +
-      `or an Array of Strings, but received: ${typeof config.text}`;
+  } else if (!config.hasOwnProperty('text') || typeof config.text !== 'string') {
+    const msg = '\'text\' property is required and it should be an String, ' +
+      `but received: ${typeof config.text}`;
 
     throw new Error(msg);
   }
