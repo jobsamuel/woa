@@ -56,6 +56,14 @@ Generate a JSON with the percent occurrence of each keyword in a text.
 
 - `keywords` *optional*  word or list of words to count in a text. Must be a *String* or an *Array of Strings*.
 
+## testing
+
+Since _woa_ is super simple, tests are super simple too:
+
+```bash
+$ npm test
+```
+
 ## contribution
 
 Feel free to fork and create a Pull Request with new features or an improvement of the current ones.
