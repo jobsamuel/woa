@@ -41,23 +41,21 @@ function cleanText(text) {
 }
 
 function getKeywords(defined, auto) {
-  let kw;
+  let keywords = [];
 
   if (defined && Array.isArray(defined)) {
-    kw = defined;
+    keywords = defined;
   } else if (defined) {
-    kw = Array.of(defined);
+    keywords = Array.of(defined);
   } else {
-    kw = [];
-
-    auto.map(w => {
-      if (kw.indexOf(w) === -1) {
-        kw.push(w);
+    for (let word of auto) {
+      if (!keywords.includes(word)) {
+        keywords = [...keywords, word.toLowerCase()];
       }
-    });
+    }
   }
 
-  return kw.map(w => w.toLowerCase());
+  return keywords;
 }
 
 export default woa;
