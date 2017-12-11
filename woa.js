@@ -1,22 +1,21 @@
-function woa(config) {
-  if (typeof config !== 'object') {
-    const msg = `Expected an Object Argument but received: ${typeof config}.`;
+function woa({text, keywords} = {}) {
+  if (arguments.length === 0 || typeof arguments[0] !== 'object') {
+    const msg = `Expected an Object Argument but received: ${typeof arguments[0]}.`;
 
     throw new Error(msg);
-  } else if (!config.hasOwnProperty('text') || typeof config.text !== 'string') {
-    const msg = '\'text\' property is required and it should be an String, ' +
-      `but received: ${typeof config.text}`;
+  } else if (!text || typeof text !== 'string') {
+    const msg = `'text' is required and it should be a String, but received: ${typeof text}.`;
 
     throw new Error(msg);
   }
 
-  const text = cleanText(config.text);
-  const words = text.split(' ');
-  const keywords = getKeywords(config.keywords, words);
+  const cleanText = sanitizeText(text);
+  const words = cleanText.split(' ');
+  const processedKeywords = getKeywords(keywords, words);
   const counts = {};
   const frecuency = {};
 
-  keywords.map(kw => {
+  processedKeywords.map(kw => {
     words.map(w => {
       const value = new RegExp(kw);
 
@@ -31,7 +30,7 @@ function woa(config) {
   return frecuency;
 }
 
-function cleanText(text) {
+function sanitizeText(text) {
   return text.toLowerCase()
     .normalize('NFD')
     .replace(/[\u0300-\u036f]|\u0027/g, '')
