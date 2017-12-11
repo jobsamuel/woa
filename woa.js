@@ -49,12 +49,12 @@ function getKeywords(defined, auto) {
   } else {
     for (let word of auto) {
       if (!keywords.includes(word)) {
-        keywords = [...keywords, word.toLowerCase()];
+        keywords = [...keywords, word];
       }
     }
   }
 
-  return keywords;
+  return keywords.map(kw => kw.toLowerCase());
 }
 
 export default woa;
