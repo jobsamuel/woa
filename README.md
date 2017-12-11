@@ -14,12 +14,12 @@ Example.js
 ```js
 import woa from 'woa';
 
-const text = 'What is love?' +
-    'Baby, don\'t hurt me' +
-    'Don\'t hurt me no more';
+const text = `What is love?
+  Baby, don't hurt me
+  Don't hurt me no more`;
 
 const keywords = ['hurt', 'baby', 'oh'];
-const result = woa(text, keywords);
+const result = woa({text, keywords});
 
 console.log(result);
 ```
@@ -34,40 +34,27 @@ The result will be this:
 }
 ```
 
-Also, you can use an external text file with a callback:
-
-```js
-// ...
-
-const words = 'path/to/text.txt';
-const keywords = ['gimme', 'a', 'sign'];
-
-woa(words, keywords, function(result) {
-    console.log(result);
-});
-```
-
 ## why this module?
 
-I stumble upon the necessity of a tool that simplify comment processing for [Instagram Analytics](https://github.com/jobsamuel/node-instagram-analytics); I just want to make easy the analysis of any text.
+I stumble upon the necessity of a tool that simplify comments processing; I just want to make easy the analysis of any text.
 
-**woa** helps you to discover and count patterns in text using the power of Node. It's written in pure javascript, blazing fast and easy to use.
+**woa** helps you to discover and count patterns in text using the power of Node. It's written in pure Javascript, blazing fast and easy to use.
 
 Would you like to try it out?
 
 ## api
 
-### `woa(text, keywords, onComplete)`
+### `woa(config)`
 
 Generate a JSON with the percent occurrence of each keyword in a text.
 
-#### arguments
+#### argument
 
-`text` The text to be processed. Must be a *String* containing either Text to be processed or a file path to it.
+`config` an Object containing these parameters:
 
-`keywords` *optional*  word or list of words to count in a text. Must be a *String* or an *Array of Strings*.
+  `text` The text to be processed. Must be a *String* containing Text to be processed.
 
-`onComplete` An *optional* callback function that will be called when the text analysis is completed. The callback will be passed a JSON with the result.
+  `keywords` *optional*  word or list of words to count in a text. Must be a *String* or an *Array of Strings*.
 
 ## contribution
 
