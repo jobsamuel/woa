@@ -1,13 +1,13 @@
 {
   "name": "woa",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "NodeJS module for word analytics",
   "main": "index.js",
   "scripts": {
     "compile": "node_modules/.bin/babel woa.js -o index.js",
     "watch": "node_modules/.bin/babel woa.js -w -o index.js",
     "prepublish": "npm run compile",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run compile && node test.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,8 @@
   },
   "homepage": "https://github.com/jobsamuel/woa#readme",
   "devDependencies": {
-    "babel": "^5.8.29"
+    "babel-cli": "^6.26.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-env": "^1.6.1"
   }
 }

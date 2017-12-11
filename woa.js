@@ -1,86 +1,60 @@
-import fs from 'fs';
+function woa({text, keywords} = {}) {
+  if (arguments.length === 0 || typeof arguments[0] !== 'object') {
+    const msg = `Expected an Object Argument but received: ${typeof arguments[0]}.`;
 
-function woa(text, keywords, callback) {
-  if (typeof text !== 'string') {
-    throw new Error('The first parameter must be a String.');
+    throw new Error(msg);
+  } else if (!text || typeof text !== 'string') {
+    const msg = `'text' is required and it should be a String, but received: ${typeof text}.`;
+
+    throw new Error(msg);
   }
 
-  const _text = cleanText(text);
-  const _words = _text.split(' ');
-  const _counts = {};
-  const _frecuency = {};
-  let _keywords;
-  let _kw;
+  const cleanText = sanitizeText(text);
+  const words = cleanText.split(' ');
+  const processedKeywords = getKeywords(keywords, words);
+  const counts = {};
+  const frecuency = {};
 
-  if (!keywords || typeof keywords === 'function') {
-    _kw = getKeywords(_words);
-  } else if (typeof keywords === 'string') {
-    _kw = [];
-    _kw.push(keywords.toLowerCase());
-  } else if (keywords && callback && (typeof keywords !== 'object' || keywords[0] === undefined)) {
-    throw new Error('The second parameter must be a string or an array of strings.');
-  } else if (!callback && (typeof keywords !== 'object' || keywords[0] === undefined)) {
-    throw new Error('The second parameter must be a string, an Array of strings or a callback function.');
-  }
+  processedKeywords.map(kw => {
+    words.map(w => {
+      const value = new RegExp(kw);
 
-  _keywords = _kw || keywords.map(k => k.toLowerCase());
-
-  _keywords.forEach(function(_k) {
-    _words.forEach(function(_w) {
-      const _v = new RegExp(_k);
-
-      if (_v.test(_w)) {
-        _counts[_k] ? _counts[_k] += 1 : _counts[_k] = 1;
+      if (value.test(w)) {
+        counts[kw] ? counts[kw] += 1 : counts[kw] = 1;
       }
     });
-    
-    if (_counts[_k]) {
-      _frecuency[_k] = _counts[_k] / _words.length
-    } else {
-      _frecuency[_k] = 'n/a';
-    }
+
+    frecuency[kw] = counts[kw] ? counts[kw] / words.length : 'n/a';
   });
 
-  if (callback && typeof callback === 'function') {
-    return callback(_frecuency);
-  } else if (keywords && typeof keywords === 'function') {
-    return keywords(_frecuency);
+  return frecuency;
+}
+
+function sanitizeText(text) {
+  return text.toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]|\u0027/g, '')
+    .replace(/\W+/g, ' ')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+
+function getKeywords(defined, auto) {
+  let keywords = [];
+
+  if (defined && Array.isArray(defined)) {
+    keywords = defined;
+  } else if (defined) {
+    keywords = Array.of(defined);
+  } else {
+    for (let word of auto) {
+      if (!keywords.includes(word)) {
+        keywords = [...keywords, word];
+      }
+    }
   }
 
-  return _frecuency;
-}
-
-function cleanText(text) {
-  let tx = '';
-  let ty;
-  let t1;
-  let t2;
-
-  try { 
-    ty = fs.readFileSync(text, 'utf8');
-  } catch (e) { 
-    ty = text;
-  };
-
-  t1 = ty.toLowerCase().split(' ');
-  
-  t2 = t1.map(t => t.replace(/[^a-z]/g, ' '));
-  
-  t2.forEach(t => tx = tx + ' ' + t);
-
-  return tx.replace(/\s{2,}/g, ' ').trim();
-}
-
-function getKeywords(text) {
-  let someWords = [];
-
-  text.forEach(function(w) {
-    if (someWords.indexOf(w) === -1) {
-      someWords.push(w);
-    }
-  });
-
-  return someWords;
+  return keywords.map(kw => kw.toLowerCase());
 }
 
 export default woa;
