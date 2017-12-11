@@ -52,13 +52,13 @@ Generate a JSON with the percent occurrence of each keyword in a text.
 
 `config` an Object containing these parameters:
 
-  `text` The text to be processed. Must be a *String* containing Text to be processed.
+- `text` The text to be processed. Must be a *String* containing Text to be processed.
 
-  `keywords` *optional*  word or list of words to count in a text. Must be a *String* or an *Array of Strings*.
+- `keywords` *optional*  word or list of words to count in a text. Must be a *String* or an *Array of Strings*.
 
 ## contribution
 
-Feel free to fork and create a Pull Request with new features or an improvement of the current ones. Just keep in mind this [Javascript Style Guide](https://github.com/airbnb/javascript/tree/master/es5) when you're coding your contribution.
+Feel free to fork and create a Pull Request with new features or an improvement of the current ones.
 
 ## license
 
