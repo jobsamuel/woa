@@ -7,7 +7,7 @@
     "compile": "babel woa.js -o index.js",
     "watch": "babel woa.js -w -o index.js",
     "prepublish": "npm run compile",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "babel woa.js -o index.js && node test.js"
   },
   "repository": {
     "type": "git",
