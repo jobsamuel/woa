@@ -35,7 +35,7 @@ function cleanText(text) {
   return text.toLowerCase()
     .normalize('NFD')
     .replace(/[\u0300-\u036f]|\u0027/g, '')
-    .replace(/[^a-z]+/g, ' ')
+    .replace(/\W+/g, ' ')
     .replace(/\s{2,}/g, ' ')
     .trim();
 }
