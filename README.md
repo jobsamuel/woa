@@ -9,9 +9,9 @@ $ npm install woa
 
 ## usage
 
-Example.js
-
 ```js
+// example.js
+
 import woa from 'woa';
 
 const text = `What is love?
@@ -24,19 +24,19 @@ const result = woa({text, keywords});
 console.log(result);
 ```
 
-The result will be this:
+The result will be something like this:
 
 ```json
 {
-    "hurt": 0.16666666666666666,
-    "baby": 0.08333333333333333,
-    "oh": "n/a"
+  "hurt": 0.16666666666666666,
+  "baby": 0.08333333333333333,
+  "oh": "n/a"
 }
 ```
 
 ## why this module?
 
-I stumble upon the necessity of a tool that simplify comments processing; I just want to make easy the analysis of any text.
+I stumbled upon the necessity of a tool that simplifies comments processing; I just want to make easy the analysis of any text.
 
 **woa** helps you to discover and count patterns in text using the power of Node. It's written in pure Javascript, blazing fast and easy to use.
 
