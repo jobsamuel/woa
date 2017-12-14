@@ -94,10 +94,10 @@ const table = buildTable;
 testWoa();
 
 function testWoa() {
-
-  // DEBUG
-  runTest({id: 1, text: 'sample'});
-  runTest({id: 2});
+  runTest({id: 1});
+  runTest({id: 2, text});
+  runTest({id: 3, keywords});
+  runTest({id: 4, text, keywords: 'life'});
 }
 
 function createHeader() {
@@ -134,31 +134,53 @@ function runTest(config) {
   const {id, text, keywords} = config;
   let current;
   let results;
+  let error;
 
   try {
     hr.title(`Running TEST ${id}...`);
 
     current = woa({text, keywords});
-    results = getResults(current, config);
-
-    table(results);
-  } catch (error) {
-    results = getResults(error, config);
-
-    table(results);
+  } catch (err) {
+    error = err
   } finally {
+    if (error) {
+      results = getResults(error, config);
+    } else {
+      results = getResults(current, config);
+    }
+
+    table(results);
+
     hr.subtitle(`TEST ${id} Completed.`);
   }
 }
 
 function getResults(received, config) {
-  if (received instanceof Error && (!config.text && !config.keywords)) {
+  const expectedLove = (0.06614785992217899).toFixed(5);
+  const expectedLife = (0.0038910505836575876).toFixed(5);
+  const result = (expected, received) => {
+    return !isNaN(received) && expected === (received).toFixed(5) ? 'passed ✔' : 'failed ✘';
+  }
+
+  if (received instanceof Error && !config.text) {
     return ['ERROR', 'ERROR', 'passed ✔'];
-  } else if (received instanceof Error && config.text) {
-    return ['\'love\' = 0.99', 'ERROR', 'failed ✘'];
+  } else if (received instanceof Error) {
+    return [
+      `'love' = ${expectedLove}`,
+      'ERROR',
+      result(expectedLove, 'ERROR')
+    ];
   } else if (config.text && config.keywords) {
-    return ['\'life\' = 0.5', '\'life\' = 0.5', 'passed ✔'];
+    return [
+      `'life' = ${expectedLife}`,
+      `'life' = ${(received.life).toFixed(5)}`,
+      result(expectedLife, received.life)
+    ];
   } else if (config.text) {
-    return ['\'love\' = 0.9', '\'love\' = 0.99', 'passed ✔'];
+    return [
+      `'love' = ${expectedLove}`,
+      `'love' = ${(received.love).toFixed(5)}`,
+      result(expectedLove, received.love)
+    ];
   }
 }
