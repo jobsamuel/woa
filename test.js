@@ -88,8 +88,6 @@ const text = `
   What is love?`;
 
 const keywords = ['hurt', 'baBy', 'oh'];
-const hr = createHeader();
-const table = buildTable;
 
 testWoa();
 
@@ -100,42 +98,37 @@ function testWoa() {
   runTest({id: 4, text, keywords: 'life'});
 }
 
-function createHeader() {
-  return {
-    title: text => buildContainer(text, '*'),
-    subtitle: text => buildContainer(text, '-')
-  };
-}
+function buildTable(id, data) {
+  const [a, b, c] = data.map(txt => `${' '.repeat(span(txt).left)}${txt}${' '.repeat(span(txt).right)}`);
+  const table = `
+    ┌${'─'.repeat(38)}┐
+    │${' '.repeat(10)}Running TEST ${id}...${' '.repeat(11)}│
+    │${'─'.repeat(38)}│
+    │ EXPECTED │${a}│
+    │${'─'.repeat(38)}│
+    │ RECEIVED │${b}│
+    │${'─'.repeat(38)}│
+    │  RESULT  │${c}│
+    │${'─'.repeat(38)}│
+    │${' '.repeat(10)}TEST ${id} Completed.${' '.repeat(11)}│
+    └${'─'.repeat(38)}┘
+  `;
 
-function buildContainer(text, pattern) {
-  const span = ((40 - text.length) / 2) - 1;
+  return table;
 
-  if (text.length < 40) {
-    console.log(`${pattern.repeat(40)}`);
-    console.log(`│${' '.repeat(span)}${text}${' '.repeat(span)}│`);
-    console.log(`${pattern.repeat(40)}`);
+  function span(text) {
+    const left = Math.floor((27 - text.length) / 2);
+    const right = (27 - left - text.length);
+
+    return {left, right};
   }
-}
-
-function buildTable(data) {
-  const span = text => (((40 - 13) - text.length) / 2);
-  const [a, b, c] = data;
-
-  console.log(`\n\n┌${'─'.repeat(38)}┐`);
-  console.log(`│ EXPECTED │ ${' '.repeat(span(a))}${a}${' '.repeat(span(a))}│`);
-  console.log(`│${'─'.repeat(38)}│`);
-  console.log(`│ RECEIVED │ ${' '.repeat(span(b))}${b}${' '.repeat(span(b))}│`);
-  console.log(`│${'─'.repeat(38)}│`);
-  console.log(`│  RESULT  │ ${' '.repeat(span(c))}${c}${' '.repeat(span(c))}│`);
-  console.log(`└${'─'.repeat(38)}┘\n\n`);
 }
 
 function runTest(config) {
   const {id, text, keywords} = config;
   let results;
   let output;
-
-  hr.title(`Running TEST ${id}...`);
+  let table;
 
   try {
     output = woa({text, keywords});
@@ -144,10 +137,9 @@ function runTest(config) {
   }
 
   results = getResults({output, config});
+  table = buildTable(id, results);
 
-  table(results);
-
-  hr.subtitle(`TEST ${id} Completed.`);
+  console.log(table);
 }
 
 function getResults({output, config}) {
