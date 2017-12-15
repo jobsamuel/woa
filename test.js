@@ -132,55 +132,39 @@ function buildTable(data) {
 
 function runTest(config) {
   const {id, text, keywords} = config;
-  let current;
   let results;
-  let error;
+  let output;
+
+  hr.title(`Running TEST ${id}...`);
 
   try {
-    hr.title(`Running TEST ${id}...`);
-
-    current = woa({text, keywords});
-  } catch (err) {
-    error = err
-  } finally {
-    if (error) {
-      results = getResults(error, config);
-    } else {
-      results = getResults(current, config);
-    }
-
-    table(results);
-
-    hr.subtitle(`TEST ${id} Completed.`);
+    output = woa({text, keywords});
+  } catch (error) {
+    output = error;
   }
+
+  results = getResults({output, config});
+
+  table(results);
+
+  hr.subtitle(`TEST ${id} Completed.`);
 }
 
-function getResults(received, config) {
-  const expectedLove = (0.06614785992217899).toFixed(5);
-  const expectedLife = (0.0038910505836575876).toFixed(5);
-  const result = (expected, received) => {
-    return !isNaN(received) && expected === (received).toFixed(5) ? 'passed ✔' : 'failed ✘';
+function getResults({output, config}) {
+  const expectedLove = 0.06614785992217899;
+  const expectedLife = 0.0038910505836575876;
+  let values = [];
+
+  if (output instanceof Error && !config.text) {
+    values = ['ERROR', 'ERROR'];
+  } else if (output instanceof Error) {
+    values = [expectedLove, 'ERROR'];
+  } else if (output && config.text && config.keywords) {
+    values = [expectedLife, output.life];
+  } else if (output && config.text) {
+    values = [expectedLove, output.love];
   }
 
-  if (received instanceof Error && !config.text) {
-    return ['ERROR', 'ERROR', 'passed ✔'];
-  } else if (received instanceof Error) {
-    return [
-      `'love' = ${expectedLove}`,
-      'ERROR',
-      result(expectedLove, 'ERROR')
-    ];
-  } else if (config.text && config.keywords) {
-    return [
-      `'life' = ${expectedLife}`,
-      `'life' = ${(received.life).toFixed(5)}`,
-      result(expectedLife, received.life)
-    ];
-  } else if (config.text) {
-    return [
-      `'love' = ${expectedLove}`,
-      `'love' = ${(received.love).toFixed(5)}`,
-      result(expectedLove, received.love)
-    ];
-  }
+  return values.map(val => isNaN(val) ? val : val.toFixed(5))
+    .reduce((a, b, i, arr) => a === b ? arr.concat('passed ✔') : arr.concat('failed ✘'));
 }
