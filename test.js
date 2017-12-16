@@ -87,7 +87,7 @@ const text = `
   No more
   What is love?`;
 
-const keywords = ['hurt', 'baBy', 'oh'];
+const keywords = ['less', 'tOgeTher', 'ok'];
 
 testWoa();
 
@@ -95,7 +95,7 @@ function testWoa() {
   runTest({id: 1});
   runTest({id: 2, text});
   runTest({id: 3, keywords});
-  runTest({id: 4, text, keywords: 'life'});
+  runTest({id: 4, text, keywords: 'together'});
 }
 
 function buildTable(id, data) {
@@ -143,18 +143,24 @@ function runTest(config) {
 }
 
 function getResults({output, config}) {
-  const expectedLove = 0.06614785992217899;
-  const expectedLife = 0.0038910505836575876;
+  const references = [
+    {name: 'love', value: 0.06614785992217899},
+    {name: 'life', value: 0.0038910505836575876},
+    {name: 'hurt', value: 0.10894941634241245},
+    {name: 'time', value: 0.0038910505836575876},
+    {name: 'together', value: 0.0038910505836575876}
+  ];
+  const test = references[Math.floor(Math.random()*5)];
   let values = [];
 
   if (output instanceof Error && !config.text) {
     values = ['ERROR', 'ERROR'];
   } else if (output instanceof Error) {
-    values = [expectedLove, 'ERROR'];
+    values = [test.value, 'ERROR'];
   } else if (output && config.text && config.keywords) {
-    values = [expectedLife, output.life];
+    values = [references[4].value, output.together];
   } else if (output && config.text) {
-    values = [expectedLove, output.love];
+    values = [test.value, output[test.name]];
   }
 
   return values.map(val => isNaN(val) ? val : val.toFixed(5))
